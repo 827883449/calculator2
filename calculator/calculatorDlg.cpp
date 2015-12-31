@@ -56,6 +56,7 @@ CcalculatorDlg::CcalculatorDlg(CWnd* pParent /*=NULL*/)
 	, m_str(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	c=180;
 }
 
 void CcalculatorDlg::DoDataExchange(CDataExchange* pDX)
@@ -88,6 +89,8 @@ BEGIN_MESSAGE_MAP(CcalculatorDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_ADD2, &CcalculatorDlg::OnBnClickedAdd2)
 	ON_BN_CLICKED(IDC_genhao, &CcalculatorDlg::OnBnClickedgenhao)
 	ON_BN_CLICKED(IDC_baifen, &CcalculatorDlg::OnBnClickedbaifen)
+	ON_BN_CLICKED(IDC_shanchu, &CcalculatorDlg::OnBnClickedshanchu)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -121,7 +124,7 @@ BOOL CcalculatorDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-
+	SetTimer(1,1000,NULL);
 	// TODO: 在此添加额外的初始化代码
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -403,4 +406,31 @@ void CcalculatorDlg::OnBnClickedbaifen()
 	a=temp/100*_ttof(m_str);
 	m_str.Format(L"%g",a);
 	UpdateData(false);
+}
+
+
+void CcalculatorDlg::OnBnClickedshanchu()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	if(!m_str.IsEmpty())
+	{
+		m_str=m_str.Left(m_str.GetLength()-1);
+	}
+	UpdateData(FALSE);
+}
+
+
+void CcalculatorDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	int r=40,x,y,ox=100,oy=100;
+		CDC *pDC;
+		pDC=GetDC();
+		x=ox+r*sin(c*3.1415926/180);
+		y=oy+r*cos(c*3.1415926/180);
+		pDC->MoveTo(ox,oy);
+		pDC->LineTo(x,y);
+		c=c-6;
+	CDialogEx::OnTimer(nIDEvent);
 }

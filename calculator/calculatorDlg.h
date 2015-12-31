@@ -33,6 +33,7 @@ public:
 	CString m_str;
 	double temp;
 	int flag;
+	int c;
 	afx_msg void OnBnClicked1();
 	afx_msg void OnBnClicked2();
 	afx_msg void OnBnClicked3();
@@ -53,4 +54,6 @@ public:
 	afx_msg void OnBnClickedAdd2();
 	afx_msg void OnBnClickedgenhao();
 	afx_msg void OnBnClickedbaifen();
+	afx_msg void OnBnClickedshanchu();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
