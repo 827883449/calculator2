@@ -22,7 +22,13 @@ public:
 // 实现
 protected:
 	HICON m_hIcon;
-
+	double secondag;
+	double minuteag;
+	double hourag;
+    double x,y;
+	int m_h;
+	int m_m;
+	int m_s;
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);

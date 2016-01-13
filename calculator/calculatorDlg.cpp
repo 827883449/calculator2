@@ -124,8 +124,11 @@ BOOL CcalculatorDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-	SetTimer(1,1000,NULL);
 	// TODO: 在此添加额外的初始化代码
+	SetTimer(1,1000,NULL);
+	secondag=0;
+	minuteag=0;
+	hourag=0;
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -424,13 +427,54 @@ void CcalculatorDlg::OnBnClickedshanchu()
 void CcalculatorDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	int r=40,x,y,ox=100,oy=100;
-		CDC *pDC;
-		pDC=GetDC();
-		x=ox+r*sin(c*3.1415926/180);
-		y=oy+r*cos(c*3.1415926/180);
-		pDC->MoveTo(ox,oy);
-		pDC->LineTo(x,y);
-		c=c-6;
+	CDC *pdc;
+	pdc=GetDC();
+	pdc->SetWindowOrg(-500,-150);
+	pdc->Ellipse(-80,80,80,-80);
+	CPen pen(PS_SOLID,3,RGB(0,0,0));
+	pdc->TextOutW(85,-8,L"3");
+	pdc->TextOutW(-2,83,L"6");
+	pdc->TextOutW(-98,-8,L"9");
+	pdc->TextOutW(-8,-99,L"12");
+
+	CPen deletepen(PS_SOLID,6,RGB(255,0,255));
+	CPen *oldpen;
+   
+	
+	int rsecond=75; 
+	oldpen=pdc->SelectObject(&deletepen); 
+	CPen secondpen(PS_SOLID,3,RGB(100,100,100)); 
+	oldpen=pdc->SelectObject(&secondpen);
+	secondag=secondag+3.1415926/30;
+	x=rsecond*sin(secondag);
+	y=-rsecond*cos(secondag);
+	pdc->MoveTo(0,0); 
+	pdc->LineTo(x,y);
+
+
+
+	int rminute=55; 
+	oldpen=pdc->SelectObject(&deletepen); 
+	CPen minutepen(PS_SOLID,5,RGB(50,50,50)); 
+	oldpen=pdc->SelectObject(&minutepen);
+	minuteag=minuteag+3.1415926/1800;
+	x=rminute*sin(minuteag);
+	y=-rminute*cos(minuteag);
+	pdc->MoveTo(0,0); 
+	pdc->LineTo(x,y);
+	   
+
+
+	int rhour=35; 
+	oldpen=pdc->SelectObject(&deletepen); 
+	CPen hourpen(PS_SOLID,8,RGB(200,200,200)); 
+	oldpen=pdc->SelectObject(&hourpen);
+	hourag=hourag+3.1415926/21600;
+	x=rhour*sin(hourag);
+	y=-rhour*cos(hourag);
+	pdc->MoveTo(0,0); 
+	pdc->LineTo(x,y);
 	CDialogEx::OnTimer(nIDEvent);
 }
+
+
